@@ -4,16 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background-color: white;
-}
-
 * {
   font-family: 'Open Sans', sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: black;
-  }
 }

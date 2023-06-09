@@ -5,7 +5,7 @@ export default function Home() {
     <main 
       className="flex justify-center text-center mt-24 py-8"
     >
-      <h1 className="text-5xl">
+      <h1 className="text-5xl dark:text-white">
         A new way of 
         <span className="text-rose-600 font-main"> communication </span>
         equiped with privacy 🔒
