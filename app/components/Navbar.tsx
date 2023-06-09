@@ -12,12 +12,10 @@ export default function Navbar() {
   const [darkTheme, setDarkTheme] = useState();
   
   useEffect(() => {
-    if(darkTheme == true) {
-      localStorage.setItem("dark", "true");
+    if(darkTheme === true) {
       document.documentElement.classList.add("dark");
     }
     else {
-      localStorage.setItem("dark", "false");
       document.documentElement.classList.remove("dark");
     }
   }, [darkTheme])
