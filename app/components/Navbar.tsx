@@ -9,7 +9,7 @@ import { faLightbulb } from '@fortawesome/free-regular-svg-icons';
 
 export default function Navbar() { 
 
-  const [darkTheme, setDarkTheme] = useState();
+  const [darkTheme, setDarkTheme] = useState(false);
   
   useEffect(() => {
     if(darkTheme === true) {
