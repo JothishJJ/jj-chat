@@ -25,10 +25,9 @@ export default function Navbar() {
         className="flex bg-rose-500 py-4 text-xl justify-around items-center"
       >
          <Link href="/" className="font-main dark:text-white">JJChat</Link>
-         <Link href="/">Home</Link>
-         <Link href="/Login">Login</Link>
-         <Link href="/Signup">Signup</Link>
-         <div className="text-white dark:text-black">
+           <Link href="/Login">Login</Link>
+           <Link href="/Signup">Signup</Link>
+         <div className="text-white dark:text-black px-2">
          {darkTheme ? 
            (
            <FontAwesomeIcon
