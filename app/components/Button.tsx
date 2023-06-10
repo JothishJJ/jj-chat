@@ -4,7 +4,7 @@ type Props = {
     children: any,
     href: string | undefined,
     ariaLabel: string | undefined,
-    type: string | undefined,
+    type: "primary" | "outlined",
 }
 
 function Button({children, href, ariaLabel, type}: Props) {
@@ -14,9 +14,9 @@ function Button({children, href, ariaLabel, type}: Props) {
     const secondaryClasses = "";
     let classes = "";
     
-    if(type === undefined || type === "primary") {
+    if(type === "primary") {
       classes = primaryClasses;
-    } else if (type = "secondary") {
+    } else if (type === "outlined") {
       classes = secondaryClasses;
     }
       

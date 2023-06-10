@@ -13,6 +13,7 @@ export default function Home() {
       <Button
         ariaLabel="Get Started"
         href="/Signup"
+        type="primary"
       >
         Get Started
       </Button>
