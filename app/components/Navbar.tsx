@@ -22,7 +22,8 @@ export default function Navbar() {
   
     return ( 
       <nav 
-        className="flex bg-rose-500 py-4 text-xl justify-around items-center"
+        className="flex bg-rose-500 py-4 text-xl 
+        justify-around items-center fixed w-full"
       >
          <Link href="/" className="font-main dark:text-white">JJChat</Link>
            <Link href="/Login">Login</Link>
