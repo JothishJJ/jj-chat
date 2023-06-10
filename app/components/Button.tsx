@@ -9,8 +9,9 @@ type Props = {
 
 function Button({children, href, ariaLabel, type}: Props) {
     const primaryClasses = 
-    `bg-rose-600 dark:bg-rose-500 p-2 rounded-lg border-2 border-rose-900
-     text-white focus:bg-rose-700 focus:dark:bg-rose-700`;
+    `bg-rose-600 dark:bg-rose-500 p-2 rounded-lg border-2
+     border-rose-900 text-white focus:bg-rose-700
+     focus:dark:bg-rose-700`;
     const secondaryClasses = "";
     let classes = "";
     
