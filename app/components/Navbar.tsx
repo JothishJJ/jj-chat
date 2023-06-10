@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb as darkLishtbulb } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb as darkLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { faLightbulb } from '@fortawesome/free-regular-svg-icons';
 
 export default function Navbar() { 
@@ -12,11 +12,24 @@ export default function Navbar() {
   const [darkTheme, setDarkTheme] = useState(false);
   
   useEffect(() => {
+    const icon = document.getElementById("theme-icon");
     if(darkTheme === true) {
       document.documentElement.classList.add("dark");
-    }
+      icon.classList.remove("text-3xl")
+      icon.classList.add("text-5xl")
+      setTimeout(() => {
+        icon.classList.remove("text-5xl");
+        icon.classList.add("text-3xl");
+      }, 75)
+    } 
     else {
       document.documentElement.classList.remove("dark");
+      icon.classList.remove("text-3xl");
+      icon.classList.add("text-5xl");
+      setTimeout(() => {
+        icon.classList.remove("text-5xl");
+        icon.classList.add("text-3xl");
+      }, 75);
     }
   }, [darkTheme])
   
@@ -28,18 +41,18 @@ export default function Navbar() {
          <Link href="/">Home</Link>
          <Link href="/Login">Login</Link>
          <Link href="/Signup">Signup</Link>
-         <div className="text-white dark:text-black">
+         <div
+           id="theme-icon" 
+           className="text-white dark:text-black text-3xl px-2">
          {darkTheme ? 
            (
            <FontAwesomeIcon
-             icon={darkLishtbulb} 
-             size="xl"
+             icon={darkLightbulb} 
              onClick={() => setDarkTheme(!darkTheme)}
            />
            ) : (
            <FontAwesomeIcon
              icon={faLightbulb}
-             size="xl"
              onClick={() => setDarkTheme(!darkTheme)}
            />
          )
