@@ -1,5 +1,6 @@
 "use client"
 import Link from "next/link";
+import Button from "../components/Button";
 
 import { useEffect, useState } from "react";
 
@@ -32,10 +33,21 @@ export default function Navbar() {
             <div className="flex items-center justify-between">
                 <span className="font-main font-bold text-xl dark:text-white">JJChat</span>
                 <div className="dark:text-white flex gap-4 items-center">
+                  <div className="hidden md:flex md:gap-8">
+                    <Button 
+                      ariaLabel="Signup"
+                      type="primary"
+                    >Signup</Button>
+                    <Button
+                      ariaLabel="Login"
+                      type="primary"
+                    >Login</Button>
+                  </div>
                   <button
                     className={`ml-4 flex flex-col space-y-1 items-center rounded-md focus:outline-none md:hidden 
                     ${ isOpen ? 'open' : '' }`}
                     onClick={toggleNavbar}
+                    aria-label="Open Menu"
                   >
                     <span 
                       className={`h-1 w-8 dark:bg-white bg-black transition-transform duration-300 ease-out transform-gpu
@@ -80,7 +92,7 @@ export default function Navbar() {
                        rounded-lg border-2 border-rose-800 dark:bg-rose-500
                        focus:bg-rose-700 dark:focus:bg-rose-700"
                       >
-                       SignIn
+                       Login
                      </Link>
                    </li>
                    <li className="md:inline-block">
