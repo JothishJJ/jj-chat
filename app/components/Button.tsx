@@ -2,7 +2,7 @@ import Link from "next/link"
 
 type Props = {
     children: any,
-    href: string | undefined,
+    href?: string,
     ariaLabel: string | undefined,
     type: "primary" | "outlined",
 }
@@ -23,7 +23,7 @@ function Button({children, href, ariaLabel, type}: Props) {
       
     return (
        <>
-         {href === undefined ? (
+         {!href ? (
              <button
                className={classes}
                aria-label={ariaLabel}
