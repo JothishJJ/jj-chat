@@ -21,14 +21,15 @@ export default function Navbar() {
   }, [darkTheme])
   
     return ( 
+      <div className="fixed w-full dark:text-white">
       <nav 
-        className="flex bg-rose-500 py-4 text-xl 
-        justify-around items-center fixed w-full"
+        className="flex py-4 text-xl justify-around items-center"
       >
-         <Link href="/" className="font-main dark:text-white">JJChat</Link>
+         <Link href="/" className="font-main">JJChat</Link>
+         <div className="space-x-4">
            <Link href="/Login">Login</Link>
            <Link href="/Signup">Signup</Link>
-         <div className="text-white dark:text-black px-2">
+         <div className="px-2 inline-block">
          {darkTheme ? 
            (
            <FontAwesomeIcon
@@ -45,6 +46,9 @@ export default function Navbar() {
          )
          }
          </div>
+         </div>
       </nav>
+      <hr className="bg-black h-[2px]" />
+      </div>
     );
 }
