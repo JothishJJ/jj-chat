@@ -12,7 +12,8 @@ export default function Home() {
         equiped with privacy 🔒
       </h1>
       <p className="dark:text-white">
-        Exchange direct messages with peace of mind, knowing that your privacy is protected. Enjoy confidential conversations in a safe and secure environment.
+        Exchange direct messages with peace of mind, knowing that your privacy 
+        is protected. Enjoy confidential conversations in a safe and secure environment.
       </p>
       <Button
         ariaLabel="Get Started"
