@@ -31,15 +31,23 @@ export default function Navbar() {
           <div className="fixed w-full bg-neutral-50 dark:bg-neutral-900 drop-shadow-md">
           <nav className="py-4 px-8">
             <div className="flex items-center justify-between">
-                <span className="font-main font-bold text-xl dark:text-white">JJChat</span>
+                <Link
+                  href="/"
+                  className="font-main font-bold text-xl dark:text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  JJChat
+                </Link>
                 <div className="dark:text-white flex gap-4 items-center">
                   <div className="hidden md:flex md:gap-8">
                     <Button 
                       ariaLabel="Signup"
+                      href="/Signup"
                       type="primary"
                     >Signup</Button>
                     <Button
                       ariaLabel="Login"
+                      href="/Login"
                       type="primary"
                     >Login</Button>
                   </div>
@@ -87,7 +95,8 @@ export default function Navbar() {
                 <ul className="md:flex md:flex-row md:ml-auto space-y-4 text-center">
                    <li className="md:inline-block">
                      <Link
-                       href="/Signin"
+                       href="/Login"
+                       onClick={() => setIsOpen(false)}
                        className="block px-4 py-1 text-white bg-rose-600
                        rounded-lg border-2 border-rose-800 dark:bg-rose-500
                        focus:bg-rose-700 dark:focus:bg-rose-700"
@@ -98,6 +107,7 @@ export default function Navbar() {
                    <li className="md:inline-block">
                      <Link
                        href="/Signup"
+                       onClick={() => setIsOpen(false)}
                        className="block px-4 py-1 text-white bg-rose-600
                        rounded-lg border-2 border-rose-800 dark:bg-rose-500
                        focus:bg-rose-700 dark:focus:bg-rose-700"
