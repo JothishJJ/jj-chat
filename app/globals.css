@@ -7,3 +7,11 @@
 * {
   font-family: 'Open Sans', sans-serif;
 }
+
+@layer components {
+  .auth-inputs {
+    @apply p-2 focus:outline-none border-[1px]
+    border-neutral-400 focus:border-neutral-950
+    rounded-md;
+  }
+}
