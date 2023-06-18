@@ -13,7 +13,7 @@ function Login() {
               Forgot Password?
             </Link>
             <Link href="/Signup" aria-label="Signup" className="text-neutral-600 dark:text-neutral-300 text-xs hover:underline">
-              Don't have an account?
+              Don&apos;t have an account?
             </Link>
             <Button type="primary" ariaLabel="Login with email">Login</Button>
           </div>
