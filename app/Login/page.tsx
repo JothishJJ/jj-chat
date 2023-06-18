@@ -9,8 +9,13 @@ function Login() {
           <div className="w-full flex flex-col gap-4">
             <input placeholder="Email" type="email" className="auth-inputs" />
             <input placeholder="Password" type="password" className="auth-inputs" />
-            <Link href="/Forgot password" aria-label="Forgot password?" className="text-neutral-600 dark:text-neutral-300 text-xs">Forgot Password?</Link>
-            <Button type="primary" ariaLabel="Login">Login</Button>
+            <Link href="/Forgot password" aria-label="Forgot password?" className="text-neutral-600 dark:text-neutral-300 text-xs hover:underline">
+              Forgot Password?
+            </Link>
+            <Link href="/Signup" aria-label="Signup" className="text-neutral-600 dark:text-neutral-300 text-xs hover:underline">
+              Don&apos;t have an account?
+            </Link>
+            <Button type="primary" ariaLabel="Login with email">Login</Button>
           </div>
           <hr className="w-full h-[2px] bg-black dark:bg-white" />
           <div className="flex flex-col w-full gap-4">
@@ -33,7 +38,9 @@ function Login() {
           </div>
         </div>
         <div className="mt-8 hidden lg:block">
-          <h1 className="text-5xl text-center dark:text-white font-main">Login to get accsess to the best </h1>
+          <h1 className="text-5xl text-center dark:text-white font-main">
+            Unlock a world of vibrant conversations and seamless connections
+          </h1>
         </div>
       </div>
     );
