@@ -12,6 +12,8 @@
   .auth-inputs {
     @apply p-2 focus:outline-none border-[1px]
     border-neutral-400 focus:border-neutral-950
-    rounded-md;
+    rounded-md dark:border-rose-900 dark:text-white
+    dark:focus:border-rose-400 dark:bg-neutral-900
+    dark:placeholder:text-neutral-400;
   }
 }

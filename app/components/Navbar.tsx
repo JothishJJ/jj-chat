@@ -99,7 +99,8 @@ export default function Navbar() {
                        onClick={() => setIsOpen(false)}
                        className="block px-4 py-1 text-white bg-rose-600
                        rounded-lg border-2 border-rose-800 dark:bg-rose-500
-                       focus:bg-rose-700 dark:focus:bg-rose-700"
+                       focus:bg-rose-700 dark:focus:bg-rose-700 uppercase
+                       font-semibold"
                       >
                        Login
                      </Link>
@@ -110,7 +111,8 @@ export default function Navbar() {
                        onClick={() => setIsOpen(false)}
                        className="block px-4 py-1 text-white bg-rose-600
                        rounded-lg border-2 border-rose-800 dark:bg-rose-500
-                       focus:bg-rose-700 dark:focus:bg-rose-700"
+                       focus:bg-rose-700 dark:focus:bg-rose-700 uppercase 
+                       font-semibold"
                      >
                        Signup
                      </Link>
