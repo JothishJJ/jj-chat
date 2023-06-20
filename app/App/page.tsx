@@ -6,6 +6,10 @@ export default function ChatApp() {
     {
       title: "The big guns",
       photoUrl: "https://dummyimage.com/200x200/000000/ffffff&text=Profile+Pic"
+    },
+    {
+      title: "Jothish JJ",
+      photoUrl: "https://dummyimage.com/200x200/000000/ffffff&text=JJ"
     }
   ];
   
