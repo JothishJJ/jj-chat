@@ -5,10 +5,11 @@ type Props = {
     href?: string,
     ariaLabel?: string,
     className?: string,
+    onClick?: any,
     type: "primary" | "outlined",
 }
 
-function Button({children, href, ariaLabel, className, type}: Props) {
+function Button({children, href, ariaLabel, className, type, onClick}: Props) {
     const primaryClasses = 
     `bg-rose-600 dark:bg-rose-500 p-2 rounded-lg border-2
      border-rose-900 text-white focus:bg-rose-700
@@ -35,6 +36,7 @@ function Button({children, href, ariaLabel, className, type}: Props) {
              <button
                className={classes}
                aria-label={ariaLabel}
+               onClick={onClick ? onClick : ''}
              >
                  {children}
              </button>
@@ -43,6 +45,7 @@ function Button({children, href, ariaLabel, className, type}: Props) {
                href={href}
                aria-label={ariaLabel}
                className={classes}
+               onClick={onClick ? onClick : '' }
              >
                  {children}
              </Link>
