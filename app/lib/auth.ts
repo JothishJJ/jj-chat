@@ -1,6 +1,15 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { 
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
+    signInWithPopup, 
+    updateProfile,
+    signOut
+} from "firebase/auth";
 import { auth, firestore } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
+
+import { useRouter } from "next/router";
+const router = useRouter();
 
 type User = {
     username: string,
@@ -8,12 +17,23 @@ type User = {
     photoUrl: string
 }
 
+export const signUpWithEmailAndPassword = async(email: string, password: string, username: string) => {
+    await createUserWithEmailAndPassword(auth, email, password) 
+    .then(async result => {
+        await updateProfile(result.user, {displayName: username})
+        updateUser(result.user);
+    })
+    .catch(err => {
+        alert(err.message);
+    })
+}
+
 export const googleSignIn = async() => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider)
     .then((result) => {
-        const user = result.user;
-        updateUser(user);
+        result
+        updateUser(result.user);
     })
     .catch(err => {
         alert(err.message);
@@ -38,4 +58,14 @@ const updateUser = (user: any) => {
         
         setDoc(userRef, userData, {merge: true})
     }
+}
+
+export const LogOut = async() => {
+    await signOut(auth)
+    .then(() => {
+        router.push("/");
+    })
+    .catch(err => {
+        alert(err.message);
+    })
 }
