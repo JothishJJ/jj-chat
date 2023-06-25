@@ -8,9 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb as darkLishtbulb } from '@fortawesome/free-solid-svg-icons';
 import { faLightbulb } from '@fortawesome/free-regular-svg-icons';
 
+import { auth } from "../lib/firebase";
+import { logOut } from "../lib/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
+
 export default function Navbar() { 
 
   const [darkTheme, setDarkTheme] = useState(false);
+  const [user, setUser] = useState<User>();
   
   useEffect(() => {
     if(darkTheme === true) {
@@ -20,6 +25,17 @@ export default function Navbar() {
       document.documentElement.classList.remove("dark");
     }
   }, [darkTheme])
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if(currentUser)
+        setUser(currentUser)
+      else
+        setUser(undefined);
+    });
+    
+    return () => unsubscribe();
+  }, [user])
   
   const [isOpen, setIsOpen] = useState(false);
   
@@ -92,6 +108,22 @@ export default function Navbar() {
                 className={`mt-4 md:flex md:items-center md:space-x-6 transition-max-height duration-500 ease-in-out overflow-hidden 
                 ${isOpen ? 'max-h-screen min-h-screen' : 'max-h-0 min-h-0'}`}
              >
+               {user !== undefined ? (
+                 <ul className="md:flex md:flex-row md:al-auto space-y-4 text-center">
+                   <li className="md:inline-block">
+                     <Button
+                       type="primary"
+                       ariaLabel="Logout"
+                       className="w-full"
+                       onClick={() => {
+                         setIsOpen(false);
+                         logOut();
+                      }}
+                     >LogOut
+                     </Button>
+                   </li>
+                 </ul>
+               ):(
                 <ul className="md:flex md:flex-row md:ml-auto space-y-4 text-center">
                    <li className="md:inline-block">
                      <Link
@@ -118,6 +150,7 @@ export default function Navbar() {
                      </Link>
                    </li>
                 </ul>
+               )}
               </div>
             </nav>
             </div>
