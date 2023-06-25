@@ -15,7 +15,7 @@ export const googleSignIn = async() => {
         const user = result.user;
         const userRef = doc(firestore, `users/${user.uid}`);
         
-        const userData = {
+        const userData: User = {
             username: user.displayName,
             email: user.email,
             photoUrl: user.photoURL,
