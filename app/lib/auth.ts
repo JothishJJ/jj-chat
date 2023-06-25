@@ -8,8 +8,7 @@ import {
 import { auth, firestore } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-import { useRouter } from "next/router";
-const router = useRouter();
+import { redirect } from "next/navigation";
 
 type User = {
     username: string,
@@ -32,7 +31,6 @@ export const googleSignIn = async() => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider)
     .then((result) => {
-        result
         updateUser(result.user);
     })
     .catch(err => {
@@ -63,7 +61,7 @@ const updateUser = (user: any) => {
 export const LogOut = async() => {
     await signOut(auth)
     .then(() => {
-        router.push("/");
+        redirect("/");
     })
     .catch(err => {
         alert(err.message);
