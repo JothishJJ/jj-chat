@@ -2,18 +2,47 @@
 import Button from "../components/Button"
 import Link from "next/link";
 
-import { googleSignIn } from "../lib/auth"
+import { googleSignIn, signUpWithEmailAndPassword } from "../lib/auth"
+import { useState } from "react";
 
 function Signup() {
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  
     return (
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 items-center px-4 lg:px-40 pt-32 lg:pt-40">
         <div className="flex flex-col items-center gap-4 lg:gap-8 w-full">
           <h1 className="font-main text-2xl dark:text-white">Hello there! 👋</h1>
             <div className="w-full flex flex-col gap-4">
-              <input placeholder="Email" type="email" className="auth-inputs" />
-              <input placeholder="Password" type="password" className="auth-inputs" />
+              <input 
+                placeholder="Username"
+                type="text"
+                className="auth-inputs"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <input
+                placeholder="Email" 
+                type="email" 
+                className="auth-inputs" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                placeholder="Password" 
+                type="password" 
+                className="auth-inputs"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+             />
               <Link href="/Login" aria-label="Already have an account?" className="text-neutral-600 dark:text-neutral-300 text-xs hover:underline">Already have an account?</Link>
-              <Button type="primary" ariaLabel="Signup">Signup</Button>
+              <Button
+                type="primary" 
+                ariaLabel="Signup"
+                onClick={() => signUpWithEmailAndPassword(email, password, username)}
+              >Signup</Button>
             </div>
             <hr className="w-full h-[2px] bg-black dark:bg-white" />
             <div className="flex flex-col w-full gap-4">
