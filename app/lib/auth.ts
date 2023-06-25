@@ -13,19 +13,29 @@ export const googleSignIn = async() => {
     await signInWithPopup(auth, provider)
     .then((result) => {
         const user = result.user;
-        
-        if(user.displayName && user.email && user.photoURL) {
-          const userRef = doc(firestore, `users/${user.uid}`);
-          const userData: User = {
-              username: user.displayName,
-              email: user.email,
-              photoUrl: user.photoURL,
-          }
-        
-          setDoc(userRef, userData, { merge: true });
-        }
+        updateUser(user);
     })
     .catch(err => {
         alert(err.message);
     });
+}
+
+/** 
+ * @function updateUser
+ * This function creates a firestore document for the user
+ * @param user - The firebase user who signed in
+*/
+const updateUser = (user: any) => {
+    if(user.displayName && user.email) {
+        const userRef = doc(firestore, `users/${user.uid}`);
+        const firstLetter: string = user.displayName.charAt(0);
+        
+        const userData: User = {
+            username: user.displayName,
+            email: user.email,
+            photoUrl: user.photoURL ? user.photoURL : `https://dummyimage.com/200x200/000000/ffffff&text=${firstLetter}`,
+        }
+        
+        setDoc(userRef, userData, {merge: true})
+    }
 }
