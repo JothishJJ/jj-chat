@@ -8,22 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb as darkLishtbulb } from '@fortawesome/free-solid-svg-icons';
 import { faLightbulb } from '@fortawesome/free-regular-svg-icons';
 
-import { auth } from "../lib/firebase";
-import { LogOut } from "../lib/auth";
-import { onAuthStateChanged, User } from "firebase/auth";
-
 export default function Navbar() { 
 
   const [darkTheme, setDarkTheme] = useState(false);
-  const [user, setUser] = useState<User>()
-  
-  onAuthStateChanged(auth, (user) => {
-    if(user) {
-      setUser(user);
-    } else {
-      setUser(undefined);
-    }
-  });
   
   useEffect(() => {
     if(darkTheme === true) {
@@ -52,16 +39,6 @@ export default function Navbar() {
                   JJChat
                 </Link>
                 <div className="dark:text-white flex gap-4 items-center">
-                  {user ?
-                  (
-                    <div className="hidden md:flex md:gap-8">
-                      <Button
-                        ariaLabel="Logout"
-                        type="primary"
-                        onClick={() => LogOut()}
-                      >LogOut</Button>
-                    </div>
-                  ) : (
                   <div className="hidden md:flex md:gap-8">
                     <Button 
                       ariaLabel="Signup"
@@ -73,7 +50,7 @@ export default function Navbar() {
                       href="/Login"
                       type="primary"
                     >Login</Button>
-                  </div>)}
+                  </div>
                   <button
                     className={`ml-4 flex flex-col space-y-1 items-center rounded-md focus:outline-none md:hidden 
                     ${ isOpen ? 'open' : '' }`}
@@ -115,44 +92,32 @@ export default function Navbar() {
                 className={`mt-4 md:flex md:items-center md:space-x-6 transition-max-height duration-500 ease-in-out overflow-hidden 
                 ${isOpen ? 'max-h-screen min-h-screen' : 'max-h-0 min-h-0'}`}
              >
-                {user ? (
-                     <ul className="md:flex md:flex-row md:ml-auto space-y-4 text-center">
-                       <li className="md:inline-block">
-                         <Button
-                           ariaLabel="LogOut"
-                           type="primary"
-                           onClick={() => LogOut()}
-                         >LogOut</Button>
-                       </li>
-                     </ul>
-                   ) : (
-                     <ul className="md:flex md:flex-row md:ml-auto space-y-4 text-center">
-                     <li className="md:inline-block">
-                       <Link
-                         href="/Login"
-                         onClick={() => setIsOpen(false)}
-                         className="block px-4 py-1 text-white bg-rose-600
-                         rounded-lg border-2 border-rose-800 dark:bg-rose-500
-                         focus:bg-rose-700 dark:focus:bg-rose-700 uppercase
-                         font-semibold"
-                        >
-                         Login
-                       </Link>
-                     </li>
-                     <li className="md:inline-block">
-                       <Link
-                         href="/Signup"
-                         onClick={() => setIsOpen(false)}
-                         className="block px-4 py-1 text-white bg-rose-600
-                         rounded-lg border-2 border-rose-800 dark:bg-rose-500
-                         focus:bg-rose-700 dark:focus:bg-rose-700 uppercase 
-                         font-semibold"
-                       >
-                         Signup
-                       </Link>
-                     </li>
-                     </ul>
-                     )}
+                <ul className="md:flex md:flex-row md:ml-auto space-y-4 text-center">
+                   <li className="md:inline-block">
+                     <Link
+                       href="/Login"
+                       onClick={() => setIsOpen(false)}
+                       className="block px-4 py-1 text-white bg-rose-600
+                       rounded-lg border-2 border-rose-800 dark:bg-rose-500
+                       focus:bg-rose-700 dark:focus:bg-rose-700 uppercase
+                       font-semibold"
+                      >
+                       Login
+                     </Link>
+                   </li>
+                   <li className="md:inline-block">
+                     <Link
+                       href="/Signup"
+                       onClick={() => setIsOpen(false)}
+                       className="block px-4 py-1 text-white bg-rose-600
+                       rounded-lg border-2 border-rose-800 dark:bg-rose-500
+                       focus:bg-rose-700 dark:focus:bg-rose-700 uppercase 
+                       font-semibold"
+                     >
+                       Signup
+                     </Link>
+                   </li>
+                </ul>
               </div>
             </nav>
             </div>
