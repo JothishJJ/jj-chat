@@ -1,6 +1,7 @@
 "use client"
 import { firestore } from "../../lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
+import { useCollection } from "react-firebase-hooks"
 
 import Message from "../../components/Message"
 
