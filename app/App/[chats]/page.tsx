@@ -1,52 +1,26 @@
-"use client"
 import { firestore } from "../../lib/firebase"
-import { collection, query, limit, orderBy } from "firebase/firestore"
-import { useCollection } from "react-firebase-hooks/firestore"
-
-import { useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore"
 
 import Message from "../../components/Message"
 
+export const dynamicParams = false;
 
-export default function Chat() {
-  const params = useParams();
-  const router = useRouter();
-  
-  const chatsRef = query(collection(firestore, `chats/${params.chats}/chat`), orderBy("createdAt"), limit(25));
-  const [chatsSnapshot, chatsLoading, chatsError] = useCollection(chatsRef);
-  
-  const chatsIdRef = collection(firestore, `chats`);
-  const [chatIdSnapshot, chatsIdLoading, chatsIdError] = useCollection(chatsIdRef);
-  
-  useEffect(() => {
-  if(chatIdSnapshot) {
-    const noMatch = chatIdSnapshot.docs.every(item => item.id !== params.chats)
-    if(noMatch) {
-      router.push("/")
-    }
-  }
- }, [chatIdSnapshot, chatsIdLoading])
- 
-  if(chatsLoading)
+export default function Chat({params}: {params: {chats: string}}) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="loader"></div>
+      <div className="pt-28 p-4">
+         <h1 className="dark:text-white font-main text-2xl">
+           {params.chats}
+         </h1>
+         <Message author="Jothish" message="Hello There" />
       </div>
     )
-  
-  if(chatsSnapshot)
-    return (
-        <div className="pt-28 p-4">
-           <h1 className="dark:text-white font-main text-2xl">
-             {params.chats}
-           </h1>
-           <div className="space-y-4">
-             {chatsSnapshot.docs.map(doc => {
-               const data = doc.data()
-               return <Message key={doc.id} author={data.author} message={data.message} />
-             })}
-           </div>
-        </div>
-    )
+}
+
+export async function generateStaticParams() {
+  const paths: { chats: string; }[] = []
+  const querySnapshot = await getDocs(collection(firestore, `chats`));
+  querySnapshot.forEach((doc) => {
+    paths.push({chats: doc.id});
+  })
+  return paths;
 }
