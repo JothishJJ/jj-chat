@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore"
 
 export const dynamicParams = false;
 
-export default function Chat({params}) {
+export default function Chat({params}: {params: {chats: string}}) {
     return (
       <div className="pt-28 p-4">
          <h1 className="dark:text-white font-main text-2xl">
