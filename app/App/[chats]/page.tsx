@@ -1,6 +1,8 @@
 import { firestore } from "../../lib/firebase"
 import { collection, getDocs } from "firebase/firestore"
 
+import Message from "../../components/Message"
+
 export const dynamicParams = false;
 
 export default function Chat({params}: {params: {chats: string}}) {
@@ -9,6 +11,7 @@ export default function Chat({params}: {params: {chats: string}}) {
          <h1 className="dark:text-white font-main text-2xl">
            {params.chats}
          </h1>
+         <Message author="Jothish" message="Hello There" />
       </div>
     )
 }
