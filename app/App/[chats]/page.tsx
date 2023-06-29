@@ -7,6 +7,9 @@ import { useParams, useRouter } from "next/navigation"
 
 import Message from "../../components/Message"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
+
 interface Chat {
   id: string,
   author: string,
@@ -16,6 +19,8 @@ interface Chat {
 export default function Chat() {
   const params = useParams();
   const router = useRouter();
+  
+  const [message, setMessage] = useState("");
   
   const [loading, setLoading] = useState(true);
   const [chatsId, setChatsId] = useState<any[]>([]);  
@@ -46,7 +51,6 @@ export default function Chat() {
   
   // Updates Chats realtime
   const [chats, setChats] = useState<Chat[]>([]);
-  
   useEffect(() => {
     const chatsRef = collection(firestore, `chats/${params.chats}/chat`);
     const q = query(chatsRef, orderBy("createdAt"), limit(25));
@@ -85,6 +89,18 @@ export default function Chat() {
              return (<Message key={doc.id} author={doc.author} message={doc.message}  />)
            })}
          </div>
+         <form className="fixed bottom-0 left-0 right-0 flex gap-2
+          justify-evenly bg-neutral-100 dark:bg-neutral-800 p-4">
+           <input
+             placeholder="Send Mesaage!" 
+             className="auth-inputs" 
+             value={message}
+             onChange={(e) => setMessage(e.target.value)}
+           />
+           <button type="submit" className="text-2xl dark:text-white" >
+             <FontAwesomeIcon icon={faPaperPlane} />
+           </button>
+         </form>
       </div>
     )
 }
