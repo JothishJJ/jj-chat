@@ -79,11 +79,11 @@ export default function Chat() {
          <h1 className="dark:text-white font-main text-2xl">
            {params.chats}
          </h1>
-         <Message author="Jothish" message="Hello There" />
-         {chats.map(doc => {
-           <Message key={doc.id} author={doc.author} message={doc.message}  />
-         })}
-         {JSON.stringify(chats)}
+         <div className="space-y-4">
+          {chats.map(doc => {
+             return (<Message key={doc.id} author={doc.author} message={doc.message}  />)
+           })}
+         </div>
       </div>
     )
 }
