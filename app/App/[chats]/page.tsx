@@ -1,12 +1,17 @@
 "use client"
 import { firestore } from "../../lib/firebase"
 import { collection, onSnapshot } from "firebase/firestore"
-import useCollection from "../../lib/db"
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 
 import Message from "../../components/Message"
+
+interface Chat {
+  id: string,
+  author: string,
+  message: string,
+}
 
 export default function Chat() {
   const params = useParams();
@@ -40,7 +45,7 @@ export default function Chat() {
   }, [loading, chatsId, params.chats, router])
   
   // Updates Chats realtime
-  const chats = useCollection(`chats/${params.chats}/chat`);
+  const [chats, setChats] = useState<Chat[]>([{id: "Hello", author: "Himself", message: "Send a message"}]);
   
   if(loading) 
     return (
@@ -56,7 +61,7 @@ export default function Chat() {
            {params.chats}
          </h1>
          <Message author="Jothish" message="Hello There" />
-         {chats && chats.map((doc) => {
+         {chats.map((doc) => {
              <Message key={doc.id} author={doc.author} message={doc.message} />
          })}
       </div>
