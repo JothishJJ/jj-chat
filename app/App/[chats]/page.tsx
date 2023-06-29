@@ -45,7 +45,26 @@ export default function Chat() {
   }, [loading, chatsId, params.chats, router])
   
   // Updates Chats realtime
-  const [chats, setChats] = useState<Chat[]>([{id: "Hello", author: "Himself", message: "Send a message"}]);
+  const [chats, setChats] = useState<Chat[]>([]);
+  
+  useEffect(() => {
+    const collectionRef = collection(firestore, `chats/${params.chats}/chat`);
+    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+      const updatedChat: Chat[] = [];
+      snapshot.forEach(doc => {
+        const chat: Chat = {
+          id: doc.id,
+          author: doc.data().author,
+          message: doc.data().message,
+        }
+        updatedChat.push(chat);
+      })
+      setChats(updatedChat);
+    })
+    return () => {
+      unsubscribe();
+    }
+  }, [])
   
   if(loading) 
     return (
