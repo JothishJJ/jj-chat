@@ -51,7 +51,7 @@ export default function Chat() {
     const collectionRef = collection(firestore, `chats/${params.chats}/chat`);
     const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
       const updatedChat: Chat[] = [];
-      snapshot.forEach(doc => {
+      snapshot.docs.map(doc => {
         const chat: Chat = {
           id: doc.id,
           author: doc.data().author,
@@ -64,7 +64,7 @@ export default function Chat() {
     return () => {
       unsubscribe();
     }
-  }, [])
+  }, [params.chats])
   
   if(loading) 
     return (
@@ -80,9 +80,10 @@ export default function Chat() {
            {params.chats}
          </h1>
          <Message author="Jothish" message="Hello There" />
-         {chats.map((doc) => {
-             <Message key={doc.id} author={doc.author} message={doc.message} />
+         {chats.map(doc => {
+           <Message key={doc.id} author={doc.author} message={doc.message}  />
          })}
+         {JSON.stringify(chats)}
       </div>
     )
 }
