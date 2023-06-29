@@ -1,6 +1,6 @@
 "use client"
 import { firestore } from "../../lib/firebase"
-import { collection, onSnapshot } from "firebase/firestore"
+import { collection, limit, onSnapshot, orderBy, query } from "firebase/firestore"
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
@@ -48,8 +48,9 @@ export default function Chat() {
   const [chats, setChats] = useState<Chat[]>([]);
   
   useEffect(() => {
-    const collectionRef = collection(firestore, `chats/${params.chats}/chat`);
-    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+    const chatsRef = collection(firestore, `chats/${params.chats}/chat`);
+    const q = query(chatsRef, orderBy("createdAt"), limit(25));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const updatedChat: Chat[] = [];
       snapshot.docs.map(doc => {
         const chat: Chat = {
@@ -68,7 +69,7 @@ export default function Chat() {
   
   if(loading) 
     return (
-      <div>
+      <div className="h-screen flex justify-center items-center">
         <div className="loader"></div>
       </div>
     )
