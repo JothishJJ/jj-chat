@@ -28,7 +28,7 @@ export default function Chat() {
     });
     
     return () => unsubscribe();
-  }, [])
+  }, [chatsIdRef])
   
   
   // Checks the if page is allowed
@@ -37,7 +37,7 @@ export default function Chat() {
       if(chatId !== params.chats)
         router.push("/404");
     })
-  }, [loading, chatsId])
+  }, [loading, chatsId, params.chats, router])
   
   // Updates Chats realtime
   const chats = useCollection(`chats/${params.chats}/chat`);
