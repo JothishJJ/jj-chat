@@ -1,7 +1,7 @@
 "use client"
 import { firestore } from "../../lib/firebase"
 import { collection, onSnapshot } from "firebase/firestore"
-import { useCollection } from "react-firebase-hooks"
+import useCollection from "../../lib/db"
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
@@ -13,14 +13,13 @@ export default function Chat() {
   const router = useRouter();
   
   const [loading, setLoading] = useState(true);
-  const [chatsId, setChatsId] = useState<any[]>([]);
-  
+  const [chatsId, setChatsId] = useState<any[]>([]);  
   const chatsIdRef = collection(firestore, "chats")
   
   // Updates loading and chatsId
-  useEffect(async () => {
-    const unsubscribe = await onSnapshot(chatsIdRef, snapshot => {
-      const paths = []
+  useEffect(() => {
+     const unsubscribe = onSnapshot(chatsIdRef, snapshot => {
+      const paths: any[] = []
       snapshot.forEach((doc) => {
         paths.push(doc.id);
         setLoading(false);
@@ -28,7 +27,7 @@ export default function Chat() {
       setChatsId(paths);
     });
     
-    return () => unsubscribe;
+    return () => unsubscribe();
   }, [])
   
   
@@ -39,6 +38,9 @@ export default function Chat() {
         router.push("/404");
     })
   }, [loading, chatsId])
+  
+  // Updates Chats realtime
+  const chats = useCollection(`chats/${params.chats}/chat`);
   
   if(loading) 
     return (
@@ -54,6 +56,9 @@ export default function Chat() {
            {params.chats}
          </h1>
          <Message author="Jothish" message="Hello There" />
+         {chats && chats.map((doc) => {
+             <Message key={doc.id} author={doc.author} message={doc.message} />
+         })}
       </div>
     )
 }
