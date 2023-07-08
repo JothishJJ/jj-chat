@@ -5,11 +5,45 @@ import Link from "next/link";
 import {useState, useEffect} from "react";
 
 import { firestore } from "../lib/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, serverTimestamp, addDoc, doc, setDoc } from "firebase/firestore";
+
+import Button from "../components/Button";
+import { useRouter } from "next/navigation";
 
 export default function ChatApp() {
   
   const [loading, setLoading] = useState(true);
+  
+  const [open, setOpen] = useState(false);
+  const [chatTitle, setChatTitle] = useState('');
+  
+  const router = useRouter();
+  
+  const createChat = async(e:any, title: string) => {
+    e.preventDefault();
+    try {
+      const validation = /^[a-zA-Z0-9-_]+$/;
+      if(validation.test(title)) {
+        setChatTitle("");
+        setOpen(false);
+        const docData = {
+          author: "JJChat",
+          message: `Wellcome to ${title}`,
+          createdAt: serverTimestamp(),
+        }
+        await setDoc(doc(collection(firestore, "chats"), title), { created: true });
+        const collectionRef = collection(firestore, `chats/${title}/chat`);
+        await addDoc(collectionRef, docData)
+        .then(() => {
+          router.push(`/App/${title}`);
+        })
+      } else {
+        throw "Cannot have space, emojis, and symbols other than - and _";
+      }
+    } catch(err) {
+      alert(err);
+    }
+  }
   
   const chatsRef = collection(firestore, "chats");
   const [chats, setChats] = useState<any[]>([]);
@@ -28,7 +62,7 @@ export default function ChatApp() {
       setChats(chatsArray);
     })
     return () => unsubscribe();
-    }, [])
+    }, [loading])
     
   if(loading) 
       return (
@@ -58,5 +92,35 @@ export default function ChatApp() {
               )
             })
           }
+          {!open && (
+          <Button
+            type="outlined"
+            ariaLabel="Add Chat"
+            onClick={() => {setOpen(true)}}
+          >Add Chat</Button>
+          )}
+          {open && (
+            <form className="flex flex-col w-full gap-4">
+              <input 
+                placeholder="Title"
+                className="auth-inputs"
+                value={chatTitle}
+                onChange={(e) => setChatTitle(e.target.value)}
+              />
+              <Button
+                type="outlined" 
+                ariaLabel="Create Chat"
+                onClick={(e: any) => createChat(e, chatTitle)}
+              >Add</Button>
+              <Button
+                type="outlined"
+                ariaLabel="Cancel"
+                onClick={() => {
+                  setChatTitle('');
+                  setOpen(false);
+                }}
+              >Cancel</Button>
+            </form>
+          )}
         </div>)
 }
