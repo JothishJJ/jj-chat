@@ -44,13 +44,13 @@ export default function Chat() {
   
   // Updates loading and chatsId
   useEffect(() => {
-     const unsubscribe = onSnapshot(chatsIdRef, snapshot => {
-      const paths: any[] = []
+     const unsubscribe = onSnapshot(chatsIdRef, (snapshot) => {
+      const paths: any[] = [];
       snapshot.forEach((doc) => {
         paths.push(doc.id);
-        setLoading(false);
       })
       setChatsId(paths);
+      setLoading(false);
     });
     
     return () => unsubscribe();
@@ -59,10 +59,9 @@ export default function Chat() {
   
   // Checks the if page is allowed
   useEffect(() => {
-    chatsId.every((chatId) => {
-      if(chatId !== params.chats)
-        router.push("/404");
-    })
+    if(!loading && (!chatsId.includes(params.chats))) {
+      router.push("/404");
+    }
   }, [loading, chatsId, params.chats, router])
   
   // Updates Chats realtime
