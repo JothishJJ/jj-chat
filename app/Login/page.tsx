@@ -2,13 +2,27 @@
 import Button from "../components/Button";
 import Link from "next/link";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
+import { auth } from "../lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import { googleSignIn } from "../lib/auth";
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  const router = useRouter();
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if(user) {
+        router.push("/App");
+      }
+    })
+    return () => unsubscribe();
+  }, [])
   
     return (
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 items-center px-4 lg:px-40 pt-32 lg:pt-40">
