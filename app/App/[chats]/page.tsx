@@ -119,6 +119,8 @@ export default function Chat() {
            author: userData.username,
            message: message,
            createdAt: serverTimestamp(),
+        }).then(() => {
+          window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" })
         })
       }
     } else {

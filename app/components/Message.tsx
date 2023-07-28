@@ -11,7 +11,7 @@ export default function Message({message, author}: Props) {
       <div
         className="border-[1px] p-4 dark:text-white rounded-lg 
         border-neutral-950  dark:border-neutral-50 bg-neutral-100
-        dark:bg-neutral-800 "
+        dark:bg-neutral-800 shadow-lg"
       >
         <div className="flex gap-2 items-center">
           <Image 
